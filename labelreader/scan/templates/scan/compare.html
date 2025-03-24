@@ -1,0 +1,21 @@
+{% extends 'scan/index.html' %}
+
+{% block title %} Search food {% endblock %}
+
+{% block body %}
+    <h2>{{food1.name}}</h2>
+        <p>{{food1.brand}}
+            {{food1_nutrition.energy}}
+        </p>
+        <p>
+            {% for food1_ingredient in food1_ingredients %}
+                <li>
+                    {{food1_ingredient.ingredient.name}}  {{food1_ingredient.ingredient.type}} {{food1_ingredient.ingredient_rank}}
+                </li>
+            {% endfor %}
+        </p>
+     <h2>{{food2.name}}</h2>
+    <p>{{food2.brand}}</p>
+     <h2>{{food3.name}}</h2>
+    <p>{{food3.brand}}</p>
+{% endblock %}

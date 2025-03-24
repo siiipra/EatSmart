@@ -1,0 +1,14 @@
+{% extends 'scan/index.html' %}
+
+{% block title %} Search food {% endblock %}
+
+{% block body %}
+    <h2>{{food.id}}</h2>
+    <h2>{{food.name}}</h2>
+    <h2>{{brand.name}}</h2>
+    <h2>{{category.name}}</h2>
+    <h2>{{barcode.name}}</h2>
+    <h2>{{fssai_number.name}}</h2>
+    <a href="/scan/compare/?food1={{food.id}}"> Compare </a>
+
+{% endblock %}

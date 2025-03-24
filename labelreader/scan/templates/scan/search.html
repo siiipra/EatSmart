@@ -1,0 +1,55 @@
+{% extends 'scan/index.html' %}
+
+{% block title %} Search food {% endblock %}
+
+{% block body %}
+
+
+    <div class="container">
+            <h1>Food Search</h1>
+            <form class="d-flex" role="search"  method="GET">
+                <input class="form-control me-2" name="search_food" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+    </div>
+
+    <div class="container">
+        <h2>Search Results</h2>
+
+        {% for result in results %}
+        <div class="food-search__result row">
+           <div class="food-search__result-image col-md-1">
+               <img width="48" height="48" src="https://assets.mynetdiary.com/bean/i122.png">
+           </div>
+            <div class="col-md-7" >
+               <div class="food-search__result-info">
+                  <p class="food-search__result-title">
+                      <a href="/scan/details/{{result.id}}">
+                          <span>{{result.name}}</span>
+                      </a>
+                      <span class="food-search__result-cals"><strong>182</strong>cals</span>
+                  </p>
+                  <ul class="food-search__result-consist">
+                     <li><span class="text-success p-2 g-col-6">Carbs 26g</span></li>
+                     <li><span class="text-warning p-2 g-col-6">Fat 5.2g</span></li>
+                     <li><span class="text-info p-2 g-col-6">Protein 8g</span></li>
+                  </ul>
+               </div>
+            </div>
+           <div class="food-search__result-cals col-md-1"><strong>182</strong>cals</div>
+            <div class="food-search__result-chart col-md-3"></div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+
+{% endblock %}
+
+<style>
+    li{
+        display: inline;
+    }
+</style>
+
