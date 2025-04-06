@@ -1,21 +1,266 @@
 {% extends 'scan/index.html' %}
 
-{% block title %} Search food {% endblock %}
+{% block title %}
+    Search food
+{% endblock %}
 
 {% block body %}
-    <h2>{{food1.name}}</h2>
-        <p>{{food1.brand}}
-            {{food1_nutrition.energy}}
-        </p>
-        <p>
+
+<style>
+    /* Search results box */
+        .search-results {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Individual food item box */
+        .food-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #f9f9f9;
+            transition: background 0.3s ease;
+        }
+
+        .food-box:hover {
+            background: #e0e0e0;
+        }
+
+        /* Plus button */
+        .add-button {
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+</style>
+
+    <div class="container mt-6">
+            <h2>Search food to compare</h2>
+<!--            <form class="d-flex" role="search"  method="GET">-->
+<!--                <input class="form-control me-2" name="search_food" type="search" placeholder="Search" aria-label="Search">-->
+<!--                <button class="btn btn-outline-success" type="submit">Search</button>-->
+<!--            </form>-->
+            <input type="text" id="search-input" placeholder="Search food..." onkeyup="searchFood()">
+
+    </div>
+
+        <div class="search-results" id="search-results"></div>  <!-- Search results box -->
+
+
+    <table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name of Food</th>
+        <td scope="col">{{food1.name}}</td>
+        <td scope="col">{{food2.name}}</td>
+        <td scope="col">{{food3.name}}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <th>Brand</th>
+        <td>{{food1.brand}}</td>
+        <td>{{food2.brand}}</td>
+        <td>{{food3.brand}}</td>
+    </tr>
+    <tr>
+        <th scope="row">2</th>
+        <th>Energy per 100g(in kcal)</th>
+        <td>{{food1_nutrition.energy}}</td>
+        <td>{{food2_nutrition.energy}}</td>
+        <td>{{food3_nutrition.energy}}</td>
+    </tr>
+
+    <tr>
+        <th scope="row">3</th>
+        <th>Carbohydrate</th>
+        <td>{{food1_nutrition.carbohydrate}}</td>
+        <td>{{food2_nutrition.carbohydrate}}</td>
+        <td>{{food3_nutrition.carbohydrate}}</td>
+    </tr>
+    <tr>
+        <th scope="row">4</th>
+        <th>Total Sugar</th>
+        <td>{{food1_nutrition.total_sugar}}</td>
+        <td>{{food2_nutrition.total_sugar}}</td>
+        <td>{{food3_nutrition.total_sugar}}</td>
+    </tr>
+    <tr>
+        <th scope="row">5</th>
+        <th>Added Sugar</th>
+       <td>{{food1_nutrition.added_sugar}}</td>
+        <td>{{food2_nutrition.added_sugar}}</td>
+        <td>{{food3_nutrition.added_sugar}}</td>
+    </tr>
+    <tr>
+        <th scope="row">6</th>
+        <th>Total Fat</th>
+        <td>{{food1_nutrition.total_fat}}</td>
+        <td>{{food2_nutrition.total_fat}}</td>
+        <td>{{food3_nutrition.total_fat}}</td>
+    </tr>
+    <tr>
+        <th scope="row">7</th>
+        <th>Saturated Fat</th>
+        <td>{{food1_nutrition.saturated_fat}}</td>
+        <td>{{food2_nutrition.saturated_fat}}</td>
+        <td>{{food3_nutrition.saturated_fat}}</td>
+    </tr>
+    <tr>
+        <th scope="row">8</th>
+        <th>Trans Fat</th>
+        <td>{{food1_nutrition.trans_fat}}</td>
+        <td>{{food2_nutrition.trans_fat}}</td>
+        <td>{{food3_nutrition.trans_fat}}</td>
+    </tr>
+    <tr>
+        <th scope="row">9</th>
+        <th>Proteins</th>
+        <td>{{food1_nutrition.protein}}</td>
+        <td>{{food2_nutrition.protein}}</td>
+        <td>{{food3_nutrition.protein}}</td>
+    </tr>
+    <tr>
+        <th scope="row">10</th>
+        <th>Fibre</th>
+        <td>{{food1_nutrition.fibre}}</td>
+        <td>{{food2_nutrition.fibre}}</td>
+        <td>{{food3_nutrition.fibre}}</td>
+    </tr>
+    <tr>
+        <th scope="row">11</th>
+        <th>Sodium</th>
+        <td>{{food1_nutrition.sodium}}</td>
+        <td>{{food2_nutrition.sodium}}</td>
+        <td>{{food3_nutrition.sodium}}</td>
+    </tr>
+    <tr>
+        <th scope="row">12</th>
+        <th>Cholesterol</th>
+        <td>{{food1_nutrition.cholesterol}}</td>
+        <td>{{food2_nutrition.cholesterol}}</td>
+        <td>{{food3_nutrition.cholesterol}}</td>
+    </tr>
+    <tr>
+        <th scope="row">13</th>
+        <th>Major Ingredient </th>
+        <td>
             {% for food1_ingredient in food1_ingredients %}
                 <li>
-                    {{food1_ingredient.ingredient.name}}  {{food1_ingredient.ingredient.type}} {{food1_ingredient.ingredient_rank}}
+                    {{food1_ingredient.ingredient.name}} {{food1_ingredient.ingredient.type}} {{food1_ingredient.ingredient_rank}}
                 </li>
             {% endfor %}
-        </p>
-     <h2>{{food2.name}}</h2>
-    <p>{{food2.brand}}</p>
-     <h2>{{food3.name}}</h2>
-    <p>{{food3.brand}}</p>
+        </td>
+        <td>
+            {% for food2_ingredient in food2_ingredients %}
+                <li>
+                    {{food2_ingredient.ingredient.name}} {{food2_ingredient.ingredient.type}} {{food2_ingredient.ingredient_rank}}
+                </li>
+            {% endfor %}
+        </td>
+        <td>
+            {% for food3_ingredient in food3_ingredients %}
+                <li>
+                    {{food3_ingredient.ingredient.name}} {{food3_ingredient.ingredient.type}} {{food3_ingredient.ingredient_rank}}
+                </li>
+            {% endfor %}
+        </td>
+    </tr>
+
+  </tbody>
+</table>
+    <script>
+        function searchFood() {
+            let query = document.getElementById("search-input").value;
+            let searchResultsDiv = document.getElementById("search-results");
+
+            if (query.length < 2) {
+                searchResultsDiv.style.display = "none";
+                return;
+            }
+
+            fetch(`/scan/api/search/?search_food=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                searchResultsDiv.innerHTML = "";
+                if (data.results.length > 0) {
+                    data.results.forEach(food => {
+                        let foodBox = document.createElement("div");
+                        foodBox.classList.add("food-box");
+
+                        let foodName = document.createElement("span");
+                        foodName.innerText = food.name;
+
+                        let addButton = document.createElement("span");
+                        addButton.innerText = "+";
+                        addButton.classList.add("add-button");
+                        addButton.onclick = () => addToComparison(food.id);
+
+                        foodBox.appendChild(foodName);
+                        foodBox.appendChild(addButton);
+                        searchResultsDiv.appendChild(foodBox);
+                    });
+                     searchResultsDiv.style.display = "block";
+                } else {
+                    searchResultsDiv.style.display = "none";
+                }
+            })
+            .catch(error => console.error("Error fetching search results:", error));
+        }
+
+
+            // Helper: Get query params as a JS object
+    function getQueryParams() {
+        let params = {};
+        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+            params[key] = decodeURIComponent(value);
+        });
+        return params;
+    }
+
+    // Helper: Update query params in the URL without page reload
+    function updateQueryParams(newParams) {
+        const url = new URL(window.location.href);
+        for (const key in newParams) {
+            url.searchParams.set(key, newParams[key]);
+        }
+        window.location.href = url.toString();
+    }
+
+    // Called when user clicks "+" on a food
+    function addToComparison(foodId) {
+        let params = getQueryParams();
+        let slots = ["food1", "food2", "food3"];
+
+        // Check if food is already present
+        for (let key of slots) {
+            if (params[key] == foodId) {
+                console.log("Food already added");
+                return;
+            }
+        }
+
+        // Find first empty or overwrite oldest
+        let slotToUpdate = slots.find(key => !params[key]) || slots[0];
+        params[slotToUpdate] = foodId;
+
+        // Update URL
+        updateQueryParams({ [slotToUpdate]: foodId });
+
+    }
+        // Fetch data when the page loads
+    document.addEventListener("DOMContentLoaded", searchFood);
+    </script>
+
+
 {% endblock %}

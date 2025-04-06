@@ -16,7 +16,7 @@
     <div class="container">
         <h2>Search Results</h2>
 
-        {% for result in results %}
+        {% for nutritionaldetail in nutritionaldetails %}
         <div class="food-search__result row">
            <div class="food-search__result-image col-md-1">
                <img width="48" height="48" src="https://assets.mynetdiary.com/bean/i122.png">
@@ -25,18 +25,18 @@
                <div class="food-search__result-info">
                   <p class="food-search__result-title">
                       <a href="/scan/details/{{result.id}}">
-                          <span>{{result.name}}</span>
+                          <span>{{nutritionaldetail.food.name}}</span>
                       </a>
-                      <span class="food-search__result-cals"><strong>182</strong>cals</span>
+                      <span class="food-search__result-cals"><strong>{{nutritionaldetail.energy}}</strong>cals</span>
                   </p>
                   <ul class="food-search__result-consist">
-                     <li><span class="text-success p-2 g-col-6">Carbs 26g</span></li>
-                     <li><span class="text-warning p-2 g-col-6">Fat 5.2g</span></li>
-                     <li><span class="text-info p-2 g-col-6">Protein 8g</span></li>
+                     <li><span class="text-success p-2 g-col-6">Carbs {{nutritionaldetail.carbohydrate}}g</span></li>
+                     <li><span class="text-warning p-2 g-col-6">Fat {{nutritionaldetail.total_fat}}g</span></li>
+                     <li><span class="text-info p-2 g-col-6">Protein {{nutritionaldetail.protein}}g</span></li>
                   </ul>
                </div>
             </div>
-           <div class="food-search__result-cals col-md-1"><strong>182</strong>cals</div>
+           <div class="food-search__result-cals col-md-1"><strong>{{nutritionaldetail.energy}}</strong>cals</div>
             <div class="food-search__result-chart col-md-3"></div>
         </div>
         {% endfor %}
