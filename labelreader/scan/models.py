@@ -8,6 +8,7 @@ class Food(models.Model):
     category = models.CharField(max_length=50)
     barcode = models.CharField(max_length=50)
     fssai_number = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='food_images/', null=True, blank=True)
 
 
 class Ingredient(models.Model):

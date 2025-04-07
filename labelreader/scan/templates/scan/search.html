@@ -19,15 +19,18 @@
         {% for nutritionaldetail in nutritionaldetails %}
         <div class="food-search__result row">
            <div class="food-search__result-image col-md-1">
-               <img width="48" height="48" src="https://assets.mynetdiary.com/bean/i122.png">
+                    {% if nutritionaldetail.food.image %}
+                        <img width="48" height="48" src="{{ nutritionaldetail.food.image.url }}" class="img-fluid rounded-3" alt="{{ nutritionaldetail.food.name }}">
+                    {% else %}
+                        <p>No image available.</p>
+                    {% endif %}
            </div>
             <div class="col-md-7" >
                <div class="food-search__result-info">
                   <p class="food-search__result-title">
-                      <a href="/scan/details/{{result.id}}">
+                      <a href="/scan/details/{{nutritionaldetail.food.id}}">
                           <span>{{nutritionaldetail.food.name}}</span>
                       </a>
-                      <span class="food-search__result-cals"><strong>{{nutritionaldetail.energy}}</strong>cals</span>
                   </p>
                   <ul class="food-search__result-consist">
                      <li><span class="text-success p-2 g-col-6">Carbs {{nutritionaldetail.carbohydrate}}g</span></li>

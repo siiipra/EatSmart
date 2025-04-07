@@ -87,6 +87,7 @@ def add_food(request):
         food_category = request.POST['food_category']
         food_barcode = request.POST['food_barcode']
         food_fssainumber = request.POST['food_fssainumber']
+        food_image = request.FILES.get('food_image')
         food_carbs = request.POST['food_carbs']
         food_totalsugar = request.POST['food_totalsugar']
         food_addedsugar = request.POST['food_addedsugar']
@@ -108,7 +109,7 @@ def add_food(request):
         ingredient_9 = request.POST['ingredient_9']
         ingredient_10 = request.POST['ingredient_10']
 
-        food = Food(name=food_name, brand=food_brand, category=food_category, barcode=food_barcode, fssai_number=food_fssainumber)
+        food = Food(name=food_name, brand=food_brand, category=food_category, barcode=food_barcode, fssai_number=food_fssainumber, image=food_image)
         food.save()
         nutrition = NutritionalDetail(food=food, quantity=100, quantity_unit="gram", energy=food_calories,
                                       carbohydrate=food_carbs, total_sugar=food_totalsugar,
