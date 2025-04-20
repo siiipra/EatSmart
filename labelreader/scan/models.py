@@ -14,6 +14,7 @@ class Food(models.Model):
 class Ingredient(models.Model):
     name = models.CharField(max_length=200)
     type = models.CharField(max_length=50)
+    link = models.URLField(blank=True, null=True)
 
 
 class FoodIngredients(models.Model):

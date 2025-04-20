@@ -2,10 +2,11 @@ from django.shortcuts import render
 from .models import Food, FoodIngredients, NutritionalDetail, Ingredient
 from django.http import HttpResponse
 from django.http import JsonResponse
+import requests
 
 
 def index(request):
-    return render(request, 'scan/index.html')
+    return render(request, 'scan/home.html')
 
 
 def search(request):
@@ -129,6 +130,55 @@ def add_food(request):
             ingredient_rank = ingredient_rank + 1
         return render(request, 'scan/add_food.html')
     else:
+        food_details = {"food_name": "Good day"}
+        if "barcode" in request.GET:
+            barcode = request.GET['barcode']
+            food_details = get_open_food_facts_details(barcode)
+            print(barcode)
         ingredients = Ingredient.objects.all()
-        return render(request, 'scan/add_food.html', {"ingredients": ingredients, "ingredient_rank": range(1, 11)})
+        return render(request, 'scan/add_food.html', {"ingredients": ingredients,
+                                                      "ingredient_rank": range(1, 11), "food_details": food_details})
+
+def get_open_food_facts_details(barcode):
+    url = f"https://world.openfoodfacts.org/api/v3/product/{barcode}.json"
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        print("Failed to fetch data")
+        return {"error": "Failed to fetch data"}
+
+    data = response.json()
+
+    try:
+        product = data['product']
+        nutriments = product.get('nutriments', {})
+
+        food_data = {
+            'food_name': product.get('product_name', 'N/A'),
+            'food_calories': nutriments.get('energy-kcal_100g', 'N/A'),
+            'food_carbs': nutriments.get('carbohydrates_100g', 'N/A'),
+            'food_totalsugar': nutriments.get('sugars_100g', 'N/A'),
+            'food_fat': nutriments.get('fat_100g', 'N/A'),
+            'food_protein': nutriments.get('proteins_100g', 'N/A'),
+            'food_fiber': nutriments.get('fiber_100g', 'N/A'),
+            'food_sodium': nutriments.get('sodium_100g', 'N/A'),
+            'ingredients_text': product.get('ingredients_text', 'N/A'),
+            'food_brand': product.get('brands', 'N/A'),
+            'food_category': product.get('categories', 'N/A'),
+            'food_fssai_number': product.get('packaging_code', 'N/A'),
+            'food_addedsugar': nutriments.get('added-sugars_100g', 'N/A'),
+            'food_saturatedfat': nutriments.get('saturated-fat_100g', 'N/A'),
+            'food_transfat': nutriments.get('trans-fat_100g', 'N/A'),
+            'food_cholesterol': nutriments.get('cholesterol_100g', 'N/A'),
+            'food_ingredient_list': nutriments.get['ingredients_text']
+        }
+
+        print(food_data)
+        return food_data
+
+    except KeyError:
+        print("Unexpected response structure")
+        return {"error": "Unexpected response structure"}
+
+
 # Create your views here.

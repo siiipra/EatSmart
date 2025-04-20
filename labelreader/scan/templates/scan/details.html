@@ -57,7 +57,13 @@
                 {% for food_ingredient in food_ingredients %}
                 <li>
                     {{food_ingredient.ingredient_rank}}
-                    {{food_ingredient.ingredient.name}}
+                    {% if food_ingredient.ingredient.link %}
+                    <a href="{{ food_ingredient.ingredient.link }}" target="_blank" rel="noopener noreferrer">
+                        {{food_ingredient.ingredient.name}}
+                    </a>
+                    {% else %}
+                        {{ food_ingredient.ingredient.name }}
+                    {% endif %}
                 </li>
             {% endfor %}
             </ul>

@@ -5,8 +5,11 @@
 {% block body %}
     <div class="container mt-6">
             <h2>Provide Food id</h2>
+             <form method="get" action="" enctype="multipart/form-data">
+                <input type="text" id="search-input" name="barcode" placeholder="Enter barcode..." >
+                 <button type="submit" class="btn btn-primary">Submit</button>
+             </form>
 
-            <input type="text" id="search-input" placeholder="Search food..." onkeyup="searchFood()">
     </div>
     <div class="container">
          <form method="post" action="" enctype="multipart/form-data">
@@ -19,34 +22,34 @@
                         <img src="{{ food.image.url }}" class="img-fluid rounded-3" alt="{{ food.name }}">
                     </div>
                     <div class="col-md-6">
-                        <h2><input type="text" placeholder="Food Name" name="food_name" required></h2>
-                        <p><strong>Calories:</strong><input type="text" placeholder="Calories" name="food_calories" required> kcals</p>
-                        <p><strong>Brand:</strong> <input type="text" placeholder="Brand" name="food_brand" required></p>
-                        <p><strong>Category:</strong> <input type="text" placeholder="Category" name="food_category" required></p>
-                        <p><strong>Barcode:</strong> <input type="text" placeholder="Barcode" name="food_barcode" required></p>
-                        <p><strong>FSSAI number:</strong> <input type="text" placeholder="FSSAI number" name="food_fssainumber" required></p>
+                        <h2><input type="text" placeholder="Food Name" name="food_name" required value="{{food_details.food_name}}"></h2>
+                        <p><strong>Calories:</strong><input type="text" placeholder="Calories" name="food_calories" required value="{{food_details.food_calories}}"> kcals</p>
+                        <p><strong>Brand:</strong> <input type="text" placeholder="Brand" name="food_brand" required value="{{food_details.food_brand}}"></p>
+                        <p><strong>Category:</strong> <input type="text" placeholder="Category" name="food_category" required value="{{food_details.food_category}}"></p>
+                        <p><strong>Barcode:</strong> <input type="text" placeholder="Barcode" name="food_barcode" value="{{food_details.food_barcode}}" required></p>
+                        <p><strong>FSSAI number:</strong> <input type="text" placeholder="FSSAI number" name="food_fssainumber" value="{{food_details.food_fssainumber}}" required></p>
                     </div>
                 </div>
             </div>
              <div class="card mb-4 shadow rounded-4 p-4">
                 <h3>Nutrition Facts</h3>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Carbs: <input type="text" placeholder="Carbs" name="food_carbs" required>g
+                    <li class="list-group-item">Carbs: <input type="text" placeholder="Carbs" name="food_carbs" value="{{food_details.food_carbs}}" required>g
                         <ul>
-                          <li> Total sugar: <input type="text" placeholder="Total sugar" name="food_totalsugar"required>g</li>
-                          <li> Added Sugar: <input type="text" placeholder="Added sugar" name="food_addedsugar"required>g</li>
+                          <li> Total sugar: <input type="text" placeholder="Total sugar" name="food_totalsugar" value="{{food_details.food_totalsugar}}" required>g</li>
+                          <li> Added Sugar: <input type="text" placeholder="Added sugar" name="food_addedsugar" value="{{food_details.food_addedsugar}}" required>g</li>
                         </ul>
                     </li>
-                    <li class="list-group-item">Protein: <input type="text" placeholder="Protein" name="food_protein"required>g</li>
+                    <li class="list-group-item">Protein: <input type="text" placeholder="Protein" name="food_protein" value="{{food_details.food_protein}}" required>g</li>
                     <li class="list-group-item">Fat: <input type="text" placeholder="Fat" name="food_fat"required>g
                         <ul>
-                          <li> Saturated Fat: <input type="text" placeholder="Saturated fat" name="food_saturatedfat"required>g</li>
-                          <li> Trans Fat: <input type="text" placeholder="Trans fat" name="food_transfat"required>g</li>
+                          <li> Saturated Fat: <input type="text" placeholder="Saturated fat" name="food_saturatedfat" value="{{food_details.food_saturatedfat}}" required>g</li>
+                          <li> Trans Fat: <input type="text" placeholder="Trans fat" name="food_transfat" value="{{food_details.food_transfat}}" required>g</li>
                         </ul>
                     </li>
-                    <li class="list-group-item">Fibre: <input type="text" placeholder="Fibre" name="food_fibre"required>g</li>
-                    <li class="list-group-item">Sodium: <input type="text" placeholder="Sodium" name="food_sodium"required>mcg</li>
-                    <li class="list-group-item">Cholesterol: <input type="text" placeholder="Cholesterol" name="food_cholesterol"required>g</li>
+                    <li class="list-group-item">Fibre: <input type="text" placeholder="Fibre" name="food_fibre" value="{{food_details.food_fibre}} "required>g</li>
+                    <li class="list-group-item">Sodium: <input type="text" placeholder="Sodium" name="food_sodium" value="{{food_details.food_sodium}}" required>mg</li>
+                    <li class="list-group-item">Cholesterol: <input type="text" placeholder="Cholesterol" name="food_cholesterol" value="{{food_details.food_cholesterol}}" required>g</li>
                 </ul>
             </div>
              <div class="card mb-4 shadow rounded-4 p-4">
