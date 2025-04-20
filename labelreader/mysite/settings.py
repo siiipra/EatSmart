@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(@3(fc=-_1d$z+&)9#3g_2(usitz9onoe1py5x3&yd0ne(xj+s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'eatsmart.onrender.com']
 
 
 # Application definition
