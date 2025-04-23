@@ -38,4 +38,5 @@ class NutritionalDetail(models.Model):
     fibre = models.FloatField(default=None)
     sodium = models.FloatField(default=None)
     cholesterol = models.FloatField(default=None)
+    ingredient_list = models.TextField()
 

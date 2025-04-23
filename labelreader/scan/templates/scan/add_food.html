@@ -34,38 +34,27 @@
              <div class="card mb-4 shadow rounded-4 p-4">
                 <h3>Nutrition Facts</h3>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Carbs: <input type="text" placeholder="Carbs" name="food_carbs" value="{{food_details.food_carbs}}" required>g
+                    <li class="list-group-item">Carbs: <input type="number" placeholder="Carbs" name="food_carbs" value="{{food_details.food_carbs}}" required>g
                         <ul>
-                          <li> Total sugar: <input type="text" placeholder="Total sugar" name="food_totalsugar" value="{{food_details.food_totalsugar}}" required>g</li>
-                          <li> Added Sugar: <input type="text" placeholder="Added sugar" name="food_addedsugar" value="{{food_details.food_addedsugar}}" required>g</li>
+                          <li> Total sugar: <input type="number" placeholder="Total sugar" name="food_totalsugar" value="{{food_details.food_totalsugar}}" required>g</li>
+                          <li> Added Sugar: <input type="number" placeholder="Added sugar" name="food_addedsugar" value="{{food_details.food_addedsugar}}" required>g</li>
                         </ul>
                     </li>
-                    <li class="list-group-item">Protein: <input type="text" placeholder="Protein" name="food_protein" value="{{food_details.food_protein}}" required>g</li>
-                    <li class="list-group-item">Fat: <input type="text" placeholder="Fat" name="food_fat"required>g
+                    <li class="list-group-item">Protein: <input type="number" placeholder="Protein" name="food_protein" value="{{food_details.food_protein}}" required>g</li>
+                    <li class="list-group-item">Fat: <input type="number" placeholder="Fat" name="food_fat"required>g
                         <ul>
-                          <li> Saturated Fat: <input type="text" placeholder="Saturated fat" name="food_saturatedfat" value="{{food_details.food_saturatedfat}}" required>g</li>
-                          <li> Trans Fat: <input type="text" placeholder="Trans fat" name="food_transfat" value="{{food_details.food_transfat}}" required>g</li>
+                          <li> Saturated Fat: <input type="number" placeholder="Saturated fat" name="food_saturatedfat" value="{{food_details.food_saturatedfat}}" required>g</li>
+                          <li> Trans Fat: <input type="number" placeholder="Trans fat" name="food_transfat" value="{{food_details.food_transfat}}" required>g</li>
                         </ul>
                     </li>
-                    <li class="list-group-item">Fibre: <input type="text" placeholder="Fibre" name="food_fibre" value="{{food_details.food_fibre}} "required>g</li>
-                    <li class="list-group-item">Sodium: <input type="text" placeholder="Sodium" name="food_sodium" value="{{food_details.food_sodium}}" required>mg</li>
-                    <li class="list-group-item">Cholesterol: <input type="text" placeholder="Cholesterol" name="food_cholesterol" value="{{food_details.food_cholesterol}}" required>g</li>
+                    <li class="list-group-item">Fibre: <input type="number" placeholder="Fibre" name="food_fibre" value="{{food_details.food_fibre}} "required>g</li>
+                    <li class="list-group-item">Sodium: <input type="number" placeholder="Sodium" name="food_sodium" value="{{food_details.food_sodium}}" required>mg</li>
+                    <li class="list-group-item">Cholesterol: <input type="number" placeholder="Cholesterol" name="food_cholesterol" value="{{food_details.food_cholesterol}}" required>g</li>
                 </ul>
             </div>
              <div class="card mb-4 shadow rounded-4 p-4">
                 <h3>Ingredients</h3>
-                <ul class="list-group list-group-flush">
-                    {% for i in ingredient_rank %}
-                        <li class="list-group-item">Ingredient {{i}}:
-                        <select class="form-select" name="ingredient_{{i}}">
-                            <option value="">Select Ingredient</option>
-                            {% for ingredient in ingredients %}
-                            <option value="{{ingredient.id}}">{{ingredient.name}}</option>
-                            {% endfor %}
-                        </select>
-                    </li>
-                    {% endfor %}
-                </ul>
+                <input type="text" placeholder="Ingredient list" name="ingredient_list" value="{{food_details.ingredient_list}} "required>
             </div>
              <button type="submit" class="btn btn-primary">Submit</button>
          </>

@@ -18,7 +18,9 @@ def search(request):
         for result in results:
             print(result)
         return render(request, 'scan/search.html', {"results": results, "nutritionaldetails": nutritionaldetails})
-    return render(request, 'scan/search.html')
+
+    top_foods = Food.objects.all()[:4]
+    return render(request, 'scan/search.html', {"suggestions": top_foods})
 
 
 def search_api(request):
@@ -99,16 +101,7 @@ def add_food(request):
         food_fibre = request.POST['food_fibre']
         food_sodium = request.POST['food_sodium']
         food_cholesterol = request.POST['food_cholesterol']
-        ingredient_1 = request.POST['ingredient_1']
-        ingredient_2 = request.POST['ingredient_2']
-        ingredient_3 = request.POST['ingredient_3']
-        ingredient_4 = request.POST['ingredient_4']
-        ingredient_5 = request.POST['ingredient_5']
-        ingredient_6 = request.POST['ingredient_6']
-        ingredient_7 = request.POST['ingredient_7']
-        ingredient_8 = request.POST['ingredient_8']
-        ingredient_9 = request.POST['ingredient_9']
-        ingredient_10 = request.POST['ingredient_10']
+        ingredient_list = request.POST['ingredient_list']
 
         food = Food(name=food_name, brand=food_brand, category=food_category, barcode=food_barcode, fssai_number=food_fssainumber, image=food_image)
         food.save()
@@ -116,21 +109,11 @@ def add_food(request):
                                       carbohydrate=food_carbs, total_sugar=food_totalsugar,
                                       added_sugar=food_addedsugar, total_fat=food_fat, saturated_fat=food_saturatedfat,
                                       trans_fat=food_transfat, protein=food_protein, fibre=food_fibre, sodium=food_sodium,
-                                      cholesterol=food_cholesterol)
+                                      cholesterol=food_cholesterol, ingredient_list=ingredient_list)
         nutrition.save()
-        ingredients = [ingredient_1, ingredient_2, ingredient_3, ingredient_4, ingredient_5, ingredient_6, ingredient_7, ingredient_8, ingredient_9, ingredient_10]
-        ingredient_rank = 1
-        while ingredient_rank <= 10:
-            if ingredients[ingredient_rank-1] == "":
-                pass
-            else:
-                ingredient = Ingredient.objects.get(id=ingredients[ingredient_rank-1])
-                foodingredient = FoodIngredients(food=food, ingredient=ingredient, ingredient_rank=ingredient_rank)
-                foodingredient.save()
-            ingredient_rank = ingredient_rank + 1
         return render(request, 'scan/add_food.html')
     else:
-        food_details = {"food_name": "Good day"}
+        food_details = {}
         if "barcode" in request.GET:
             barcode = request.GET['barcode']
             food_details = get_open_food_facts_details(barcode)
@@ -154,23 +137,24 @@ def get_open_food_facts_details(barcode):
         nutriments = product.get('nutriments', {})
 
         food_data = {
+            'food_barcode': barcode,
             'food_name': product.get('product_name', 'N/A'),
-            'food_calories': nutriments.get('energy-kcal_100g', 'N/A'),
-            'food_carbs': nutriments.get('carbohydrates_100g', 'N/A'),
-            'food_totalsugar': nutriments.get('sugars_100g', 'N/A'),
-            'food_fat': nutriments.get('fat_100g', 'N/A'),
-            'food_protein': nutriments.get('proteins_100g', 'N/A'),
-            'food_fiber': nutriments.get('fiber_100g', 'N/A'),
-            'food_sodium': nutriments.get('sodium_100g', 'N/A'),
-            'ingredients_text': product.get('ingredients_text', 'N/A'),
+            'food_calories': nutriments.get('energy-kcal_100g', 0),
+            'food_carbs': nutriments.get('carbohydrates_100g', 0),
+            'food_totalsugar': nutriments.get('sugars_100g', 0),
+            'food_fat': nutriments.get('fat_100g', 0),
+            'food_protein': nutriments.get('proteins_100g', 0),
+            'food_fiber': nutriments.get('fiber_100g', 0),
+            'food_sodium': nutriments.get('sodium_100g', 0),
+            'ingredient_list': product.get('ingredients_hierarchy', 'N/A'),
             'food_brand': product.get('brands', 'N/A'),
             'food_category': product.get('categories', 'N/A'),
             'food_fssai_number': product.get('packaging_code', 'N/A'),
-            'food_addedsugar': nutriments.get('added-sugars_100g', 'N/A'),
-            'food_saturatedfat': nutriments.get('saturated-fat_100g', 'N/A'),
-            'food_transfat': nutriments.get('trans-fat_100g', 'N/A'),
-            'food_cholesterol': nutriments.get('cholesterol_100g', 'N/A'),
-            'food_ingredient_list': nutriments.get['ingredients_text']
+            'food_addedsugar': nutriments.get('added-sugars_100g', 0),
+            'food_saturatedfat': nutriments.get('saturated-fat_100g', 0),
+            'food_transfat': nutriments.get('trans-fat_100g', 0),
+            'food_cholesterol': nutriments.get('cholesterol_100g', 0),
+
         }
 
         print(food_data)

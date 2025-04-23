@@ -58,11 +58,18 @@
     <table class="table table-striped">
   <thead>
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name of Food</th>
-        <td scope="col">{{food1.name}}</td>
-        <td scope="col">{{food2.name}}</td>
-        <td scope="col">{{food3.name}}</td>
+        <th scope="col" ></th>
+        <th scope="col" style="width:10%">Name of Food</th>
+        <td scope="col" style="width:30%">{{food1.name}}</td>
+        <td scope="col" style="width:30%">{{food2.name}}</td>
+        <td scope="col" style="width:30%">{{food3.name}}</td>
+    </tr>
+    <tr>
+        <th scope="col"></th>
+        <th scope="col"> Food image</th>
+        <td scope="col"> <img src="{{ food1.image.url }}" class="img-fluid rounded-3" alt="{{ food1.name }}" style="width:150px; height:150px;"> </td>
+        <td scope="col"> <img src="{{ food2.image.url }}" class="img-fluid rounded-3" alt="{{ food2.name }}" style="width:150px; height:150px;"> </td>
+        <td scope="col"> <img src="{{ food3.image.url }}" class="img-fluid rounded-3" alt="{{ food3.name }}" style="width:150px; height:150px;"> </td>
     </tr>
   </thead>
   <tbody>
@@ -153,27 +160,15 @@
     </tr>
     <tr>
         <th scope="row">13</th>
-        <th>Major Ingredient </th>
+        <th> Ingredients </th>
         <td>
-            {% for food1_ingredient in food1_ingredients %}
-                <li>
-                    {{food1_ingredient.ingredient.name}} {{food1_ingredient.ingredient.type}} {{food1_ingredient.ingredient_rank}}
-                </li>
-            {% endfor %}
+            {{food1_nutrition.ingredient_list}}
         </td>
         <td>
-            {% for food2_ingredient in food2_ingredients %}
-                <li>
-                    {{food2_ingredient.ingredient.name}} {{food2_ingredient.ingredient.type}} {{food2_ingredient.ingredient_rank}}
-                </li>
-            {% endfor %}
+            {{food2_nutrition.ingredient_list}}
         </td>
         <td>
-            {% for food3_ingredient in food3_ingredients %}
-                <li>
-                    {{food3_ingredient.ingredient.name}} {{food3_ingredient.ingredient.type}} {{food3_ingredient.ingredient_rank}}
-                </li>
-            {% endfor %}
+            {{food3_nutrition.ingredient_list}}
         </td>
     </tr>
 
